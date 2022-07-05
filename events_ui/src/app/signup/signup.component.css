@@ -1,0 +1,14 @@
+.card{
+    margin-top: 10px;
+    border: none;
+    width: 500px;
+    padding: 40px;
+    bottom: 50%;
+    top: 50%;
+    left: 50%;
+    background-color: #413D3C;
+    
+}
+label {
+    color: white;
+}
