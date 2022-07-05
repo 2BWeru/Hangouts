@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,24 +27,52 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-s&7hi)kx)vb_*^k9s+v7$y!3^pe9kvpmd(m_trb^s3z&ctvl3_'
 
+# Consumer_Key= 'U9LnDjlbL5Np2j5ZEscZaLHjmkemDfGv'
+# Consumer_Secret= 'kYKndGNDbSGD1V4W'
+# 'HddrNBQHbDpK6jLZ/EpJPnZQbZ7E+xffklFZrBYRk5goRKb+e5AM/0e1kUWBFZG6D3ydd3IwodPdv9hAZhkF3t+blHXBIZfg7HNJo3x5DMNF6eTGADPBFCjQ7G2bJWnTdN8C0kVhFLR5lDUoZThO2NPqIZZOsyrYg5GU6CPgD4x0weGxJV8uyL0yjVXhvV2k0fKT++kDVdknIZ67UMwovPiXFOxcojh8Pp83McBSbVP9/tXtTfK2Xw2W8q4x6VBVGEGbnTpNYhqBngfVLFe3sq85lBjNWlkxCicgCpvF8bmZ9kx3obSKbNtp5Lgzs6j15jb477NoXuitFqS9Km7hlA=='
+# Pass_Key='bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+# bsn_short_code='174379'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+#
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'Hangouts',
+    'corsheaders',
+    'cloudinary_storage',
+    'cloudinary',
+    
+
+    
 ]
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAdminUser',
+#     ),
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10,
+# }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,7 +80,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'Events.urls'
 
@@ -75,12 +112,15 @@ WSGI_APPLICATION = 'Events.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hangouts2',
+        'USER': 'wamaitha',
+    'PASSWORD':'hangouts2022',
     }
 }
 
-
+# multi user authentication
+AUTH_USER_MODEL='Hangouts.user'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -117,7 +157,26 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static/"),
+]
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dm2xeskmd',
+    'API_KEY': '991167433474882',
+    'API_SECRET': 'i1z8gFqlEV2BbtAvmIYR90DANCY'
+}
+
+
+
+
