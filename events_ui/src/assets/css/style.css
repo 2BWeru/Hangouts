@@ -33,6 +33,31 @@ body {
   -o-transition: 0.5s;
   transition: 0.5s;
 }
+
+
+.going{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 0px;
+  margin-right: 0px;
+  /* background-color: green; */
+  padding-right: 0px;
+  align-items: center; 
+  justify-content: space-between;
+
+
+  
+}
+.tickets{
+  align-items: flex-end; 
+  /* background-color: yellow; */
+  margin-left: 0px;
+  margin-right: 0px;
+  justify-content: space-between;
+}
+
+
 .offcanvas #page {
   overflow: hidden;
   position: absolute;
@@ -1784,3 +1809,5 @@ textarea {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
