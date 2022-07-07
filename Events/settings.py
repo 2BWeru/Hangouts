@@ -52,12 +52,16 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'Hangouts',
     'corsheaders',
-    'cloudinary_storage',
     'cloudinary',
-    
-
-    
+    'django_filters',
+       
 ]
+
+cloudinary.config(
+    cloud_name = 'dm2xeskmd',
+    api_key =  '991167433474882',
+    api_secret = 'i1z8gFqlEV2BbtAvmIYR90DANCY'
+)
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
 #         'rest_framework.authentication.TokenAuthentication',
@@ -113,14 +117,15 @@ WSGI_APPLICATION = 'Events.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hangouts2',
+        'DISABLE_SERVER_SIDE_CURSORS': True,
+        'NAME': 'hangouts1',
         'USER': 'wamaitha',
-    'PASSWORD':'hangouts2022',
+    'PASSWORD':'hangouts2021',
     }
 }
 
 # multi user authentication
-AUTH_USER_MODEL='Hangouts.user'
+# AUTH_USER_MODEL='Hangouts.user'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -157,10 +162,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"),
-]
-
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
@@ -171,11 +172,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dm2xeskmd',
-    'API_KEY': '991167433474882',
-    'API_SECRET': 'i1z8gFqlEV2BbtAvmIYR90DANCY'
-}
+
 
 
 

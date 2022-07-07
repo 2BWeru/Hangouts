@@ -1,18 +1,15 @@
-from encodings import utf_8
-from json import tool
-from pickle import TRUE
-from urllib import response
 from rest_framework.views import APIView
-from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer
-from rest_framework import permissions
+from .serializer import  ProfileListSerializer, SitesSerializer, UserSerializer,ProfileSerializer
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.exceptions import AuthenticationFailed
-from .models import Profile,User
-from django.http import HttpResponse
-from rest_framework import permissions
+from .models import Profile, Site,User
 import jwt,datetime
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+
+
+
 
 
 class RegisterView(APIView):
@@ -20,6 +17,9 @@ class RegisterView(APIView):
         serializer=UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+
+
         return Response(serializer.data)
 
 class LoginView(APIView):
@@ -71,6 +71,46 @@ class UserView(APIView):
 
 
         return Response(serializer.data)
+
+class ProfileView(APIView):
+
+    def post(self,request):
+        serializer = Profile.objects.all()
+        serializer=ProfileSerializer(data=request.data,context={'request': None})
+        serializer.is_valid(raise_exception=True)
+        
+        serializer.save()
+
+       
+        
+        return Response (serializer.data)
+
+class ProfileListView(APIView):
+
+    def get(self, request, format=None):
+        profile = Profile.objects.all()
+        serializers = ProfileListSerializer(profile, many=True,context={'request': None})
+        return Response(serializers.data)
+
+    
+class SitesView(APIView):
+    filter_backends=[DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
+
+    filterset_fields = ['id','Location']
+    search_fields = ['title','Location']
+    ordering_fields = ['title','Location']
+
+
+
+    def get(self, request, format=None):
+        sites = Site.objects.all()
+        serializers = SitesSerializer(sites, many=True)
+        return Response(serializers.data)
+
+class SiteItemViewSet(APIView):
+    site = Site.objects.all()
+    serializer_class = SitesSerializer(site)
+
 
 
 
@@ -153,12 +193,7 @@ class LogoutView(APIView):
 
 #         return HttpResponse({'message':'Profile Created'},status=200)
 
-# class ProfileList(viewsets.ModelViewSet):
 
-#     queryset=Profile.objects.all()
-#     serializer_class = ProfileListSerializer
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    
 
 
 
