@@ -4,7 +4,7 @@ from rest_framework import serializers
 # from .models import User
 from django.contrib.auth.models import User
 
-from .models import Profile,Site
+from .models import Profile,Site,Event
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -63,3 +63,8 @@ class SitesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Site
         fields = ['id','title','photo','text','Location']
+
+class EventSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['id', 'title', 'about', 'Location', 'time', 'due_date', 'photo', 'date', 'county']

@@ -1,12 +1,15 @@
 from rest_framework.views import APIView
-from .serializer import  ProfileListSerializer, SitesSerializer, UserSerializer,ProfileSerializer
+from .serializer import  ProfileListSerializer,EventSerializers, SitesSerializer, UserSerializer,ProfileSerializer
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework.exceptions import AuthenticationFailed
-from .models import Profile, Site,User
+from .models import Profile, Site,User,Event
 import jwt,datetime
 from rest_framework import filters
+from rest_framework import permissions, mixins, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
+
+from rest_framework.decorators import action, permission_classes as permission_decorator
 
 
 
@@ -112,7 +115,32 @@ class SiteItemViewSet(APIView):
     serializer_class = SitesSerializer(site)
 
 
+class EventList(APIView):
+    # @permission_decorator([permissions.AllowAny])
+    def get(self, request, format=None):
+        events = Event.objects.all()
+        serializer = EventSerializers(events, many=True)
+        return Response(serializer.data)
 
+class EventViewset(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+
+    queryset = Event.objects.all()
+    serializer_class = EventSerializers
+    permission_classes = [permissions.AllowAny]
+
+    @action(detail=False, method=['GET'])
+    # @permission_decorator([permissions.AllowAny])
+    def events(self, *args, **kwargs):
+        queryset = Event.objects.all()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @permission_decorator([permissions.AllowAny])
+    @action(detail=False, methods=['GET'])
+    def view_event(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
 class LogoutView(APIView):
     def post(self,request):

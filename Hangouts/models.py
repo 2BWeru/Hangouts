@@ -3,18 +3,23 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 # from django.forms import PasswordInput
 
-# class User(models.Model):
-#     username = models.CharField(max_length=50, null=True)
-#     name = models.CharField(max_length=100)
-#     email = models.EmailField(unique=True)
-#     password = models.CharField(max_length=100)
-    # username = None
 
-    # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = []
+class County(models.Model):
+    title = models.CharField(max_length=255, blank=True)
     
-    # def __str__(self):
-    #     return self.username
+
+    def __str__(self):
+        return f'{self.title} County'
+
+    def create_county(self):
+        self.save()
+
+    def delete_county(self):
+        self.delete()
+
+    @classmethod
+    def find_county(cls, county_id):
+        return cls.objects.filter(id=county_id)
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
@@ -25,6 +30,8 @@ class Event(models.Model):
     due_date=models.DateField()
     photo = CloudinaryField('image',default='',null=True,blank=True)
     date = models.DateField(auto_now_add=True)
+
+    county = models.ForeignKey(County, null=True, blank=True, on_delete=models.CASCADE, related_name='county')
     # neighbourhood = models.ForeignKey(,on_delete=models.CASCADE, default='', null=True, blank=True)
 
 
