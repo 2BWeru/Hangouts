@@ -3,26 +3,44 @@ from django.contrib.auth.models import AbstractUser
 # from cloudinary.models import CloudinaryField
 # from django.forms import PasswordInput
 
-class User(AbstractUser):
-    name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=100)
-    username = None
+# class User(models.Model):
+#     name = models.CharField(max_length=100)
+#     email = models.EmailField(unique=True)
+#     password = models.CharField(max_length=100)
+#     username = None
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = []
+
+class County(models.Model):
+    title = models.CharField(max_length=255, blank=True)
+    
+
+    def __str__(self):
+        return f'{self.title} County'
+
+    def create_county(self):
+        self.save()
+
+    def delete_county(self):
+        self.delete()
+
+    @classmethod
+    def find_county(cls, county_id):
+        return cls.objects.filter(id=county_id)
 
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
-    text = models.TextField(max_length=1000)
-    id = models.IntegerField(default=0,primary_key=True)
-    Location=models.CharField(max_length=300)
-    time=models.DateField()
-    due_date=models.DateField()
+    about = models.TextField(max_length=1000)
+    id = models.IntegerField(default=0,primary_key=True, unique=True)
+    time=models.DateTimeField()
+    due_date=models.DateTimeField()
     photo = models.ImageField(upload_to='postEvent',default='',null=True,blank=True)
-    date = models.DateField(auto_now_add=True)
-    # neighbourhood = models.ForeignKey(,on_delete=models.CASCADE, default='', null=True, blank=True)
+    Location=models.CharField(max_length=300)
+    date = models.DateField(auto_now_add=True)   
+
+    county = models.ForeignKey(County, null=True, blank=True, on_delete=models.CASCADE, related_name='county')
 
 
     def __str__(self):
@@ -40,7 +58,7 @@ class Event(models.Model):
         return title
 
 class Review(models.Model):
-    user= models.ForeignKey(User,on_delete=models.CASCADE)
+    # user= models.ForeignKey(User,on_delete=models.CASCADE)
     reviews = models.CharField(max_length=100)
     created=models.DateTimeField(auto_now=True)
     event=models.ForeignKey(Event,related_name='site',on_delete=models.CASCADE,null=True, blank=True)
@@ -57,7 +75,7 @@ class Profile (models.Model):
     instagram_acc=models.CharField(max_length=200)
     facebook_acc=models.CharField(max_length=200)
     idNo = models.IntegerField(default=0,primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     # emailaddress = models.CharField(max_length=50)
     avatar =models.ImageField(blank=True, upload_to=upload_path)
     
@@ -120,7 +138,7 @@ class Site(models.Model):
         return title
 
 class Review(models.Model):
-    user= models.ForeignKey(User,on_delete=models.CASCADE)
+    # user= models.ForeignKey(User,on_delete=models.CASCADE)
     reviews = models.CharField(max_length=100)
     created=models.DateTimeField(auto_now=True)
     site=models.ForeignKey(Site,related_name='site',on_delete=models.CASCADE,null=True, blank=True)

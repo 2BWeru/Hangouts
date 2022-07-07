@@ -1,11 +1,11 @@
 from django.forms import PasswordInput
 from rest_framework import serializers
-from .models import User
-from .models import Profile
+from .models import *
+# from .models import Profile
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        # model = User
         fields = ['id','name', 'email','password']
         extra_kwargs = {
             'password':{'write_only':True,'required':True}
@@ -39,5 +39,16 @@ class ProfileListSerializer(serializers.HyperlinkedModelSerializer):
         model = Profile
         fields = ['fname','bio','idNo','user','instagram_acc','facebook_acc','avatar']
         owner = serializers.ReadOnlyField(source='user.username')
+
+
+
+
+class EventSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['id', 'title', 'about', 'Location', 'time', 'due_date', 'photo', 'date', 'county']
+
+
+
 
      

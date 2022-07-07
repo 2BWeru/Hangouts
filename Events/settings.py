@@ -113,14 +113,15 @@ WSGI_APPLICATION = 'Events.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hangouts2',
-        'USER': 'wamaitha',
-    'PASSWORD':'hangouts2022',
+        'NAME': 'events',
+        'USER': 'postgres',
+        'PASSWORD':'qwerty',
+        'HOST': 'localhost',
     }
 }
 
 # multi user authentication
-AUTH_USER_MODEL='Hangouts.user'
+# AUTH_USER_MODEL='Hangouts.user'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -145,7 +146,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -157,9 +158,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static/")]
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -171,12 +170,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dm2xeskmd',
-    'API_KEY': '991167433474882',
-    'API_SECRET': 'i1z8gFqlEV2BbtAvmIYR90DANCY'
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': 'dm2xeskmd',
+#     'API_KEY': '991167433474882',
+#     'API_SECRET': 'i1z8gFqlEV2BbtAvmIYR90DANCY'
+# }
 
+cloudinary.config( 
+  cloud_name = "dv0ldlv3d", 
+  api_key = "578664842593642", 
+  api_secret = "-W9_rN8EdmCkSiOKNZYAMP5HZlg" 
+)
 
 
 

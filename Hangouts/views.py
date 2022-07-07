@@ -3,16 +3,18 @@ from json import tool
 from pickle import TRUE
 from urllib import response
 from rest_framework.views import APIView
-from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer
-from rest_framework import permissions
+from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer, EventSerializers
+from rest_framework import permissions, mixins, viewsets
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.exceptions import AuthenticationFailed
-from .models import Profile,User
+from .models import *
 from django.http import HttpResponse
 from rest_framework import permissions
 import jwt,datetime
+
+from rest_framework.decorators import action, permission_classes as permission_decorator
 
 
 class RegisterView(APIView):
@@ -83,6 +85,37 @@ class LogoutView(APIView):
             "message":"Success"
         }
         return response
+
+
+
+
+
+class EventList(APIView):
+    # @permission_decorator([permissions.AllowAny])
+    def get(self, request, format=None):
+        events = Event.objects.all()
+        serializer = EventSerializers(events, many=True)
+        return Response(serializer.data)
+
+class EventViewset(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+
+    queryset = Event.objects.all()
+    serializer_class = EventSerializers
+    permission_classes = [permissions.AllowAny]
+
+    @action(detail=False, method=['GET'])
+    # @permission_decorator([permissions.AllowAny])
+    def events(self, *args, **kwargs):
+        queryset = Event.objects.all()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @permission_decorator([permissions.AllowAny])
+    @action(detail=False, methods=['GET'])
+    def view_event(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
 
 
@@ -174,4 +207,3 @@ class LogoutView(APIView):
 #         else:
 #             message = "Kindly input a search term to get any results"
 #             return render(request,'search.html',{})
-
