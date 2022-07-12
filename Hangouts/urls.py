@@ -3,15 +3,14 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
-from .views import RegisterView,LoginView,UserView,LogoutView, EventList, EventViewset
+from .views import RegisterView,LoginView,UserView,LogoutView
 
 
 router = routers.DefaultRouter(trailing_slash=False)
 # router.register('profile', views.ProfileViewSet, basename='profile')
 # router.register('profiles', views.ProfileList, basename='profile')  
 
-events = EventViewset.as_view({'get': 'view_event'})
-view_event = EventViewset.as_view({'get': 'view_event'})
+
 
 urlpatterns = [
     
@@ -21,7 +20,10 @@ urlpatterns = [
     path('logout',LogoutView.as_view()),
     path('api-auth/', include('rest_framework.urls')),
 
-    path('view_event/<pk>/', view_event, name='view_event'),
-    path('events/', views.EventList.as_view()),
+    path('all_events/',views.all_events.as_view(),name='events'),
+    path('create_event/',views.create_event.as_view(),name='createevent'),
+    path('all_categories/',views.all_categories.as_view(),name='allcategories'),
+
+  
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,6 +2,8 @@ from django.forms import PasswordInput
 from rest_framework import serializers
 from .models import *
 # from .models import Profile
+from rest_framework.validators import UniqueValidator
+from dataclasses import fields
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,11 +44,26 @@ class ProfileListSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Category
+        fields = '__all__'
 
-class EventSerializers(serializers.ModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
+
     class Meta:
         model = Event
-        fields = ['id', 'title', 'about', 'Location', 'time', 'due_date', 'photo', 'date', 'county']
+        fields = '__all__'
+
+class PostEventSerializer(serializers.ModelSerializer):
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(),many=False)
+
+    class Meta:
+        model = Event
+        fields ='__all__'
+
+        
 
 
 

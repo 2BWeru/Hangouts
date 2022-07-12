@@ -3,7 +3,7 @@ from json import tool
 from pickle import TRUE
 from urllib import response
 from rest_framework.views import APIView
-from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer, EventSerializers
+from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer, CategorySerializer, EventSerializer, PostEventSerializer
 from rest_framework import permissions, mixins, viewsets
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -15,6 +15,7 @@ from rest_framework import permissions
 import jwt,datetime
 
 from rest_framework.decorators import action, permission_classes as permission_decorator
+from rest_framework.permissions import IsAuthenticated,AllowAny
 
 
 class RegisterView(APIView):
@@ -90,32 +91,40 @@ class LogoutView(APIView):
 
 
 
-class EventList(APIView):
-    # @permission_decorator([permissions.AllowAny])
-    def get(self, request, format=None):
-        events = Event.objects.all()
-        serializer = EventSerializers(events, many=True)
+class all_events(APIView):
+    # permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        if request.method == "GET":
+            if  request.GET['category']:
+                category = request.GET['category']
+                print(category)
+                events = Event.objects.filter(category__id=int(category))
+                print(events)
+            # else:
+            #     events = Event.objects.all()
+            serializer = EventSerializer(events, many=True)
+            return Response(serializer.data)
+
+
+class all_categories(APIView):
+    # permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        category = Category.objects.all()
+        serializer = CategorySerializer(category, many=True)
         return Response(serializer.data)
 
-class EventViewset(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
 
-    queryset = Event.objects.all()
-    serializer_class = EventSerializers
-    permission_classes = [permissions.AllowAny]
+class create_event(APIView):
+    # permission_classes = (IsAuthenticated, )
 
-    @action(detail=False, method=['GET'])
-    # @permission_decorator([permissions.AllowAny])
-    def events(self, *args, **kwargs):
-        queryset = Event.objects.all()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+    def post(self, request):
+        serializer = PostEventSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @permission_decorator([permissions.AllowAny])
-    @action(detail=False, methods=['GET'])
-    def view_event(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
 
 
