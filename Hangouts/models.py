@@ -39,7 +39,7 @@ class Category(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=100)
     about = models.TextField(max_length=1000)
-    due_date=models.DateTimeField()
+    due_date=models.DateField()
     photo = models.ImageField(upload_to='postEvent',default='',null=True,blank=True)
     Location=models.CharField(max_length=300)
     date = models.DateField(auto_now_add=True)   

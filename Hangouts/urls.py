@@ -23,6 +23,7 @@ urlpatterns = [
     path('all_events/',views.all_events.as_view(),name='events'),
     path('create_event/',views.create_event.as_view(),name='createevent'),
     path('all_categories/',views.all_categories.as_view(),name='allcategories'),
+    path('main_event/',views.main_event.as_view(),name='main_event'),
 
   
 ]

@@ -3,7 +3,7 @@ from json import tool
 from pickle import TRUE
 from urllib import response
 from rest_framework.views import APIView
-from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer, CategorySerializer, EventSerializer, PostEventSerializer
+from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer, CategorySerializer, EventSerializer, PostEventSerializer, MainEventSerializer
 from rest_framework import permissions, mixins, viewsets
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -100,7 +100,7 @@ class all_events(APIView):
                 category = request.GET['category']
                 print(category)
                 events = Event.objects.filter(category__id=int(category))
-                print(events)
+                # print(events)
             # else:
             #     events = Event.objects.all()
             serializer = EventSerializer(events, many=True)
@@ -127,7 +127,11 @@ class create_event(APIView):
 
 
 
-
+class main_event(APIView):
+    def get(self, request):
+        main_event = Event.objects.all()
+        serializer = MainEventSerializer(main_event, many=True)
+        return Response(serializer.data)
 
 
 

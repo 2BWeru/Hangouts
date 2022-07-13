@@ -170,17 +170,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': 'dm2xeskmd',
-#     'API_KEY': '991167433474882',
-#     'API_SECRET': 'i1z8gFqlEV2BbtAvmIYR90DANCY'
-# }
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dm2xeskmd',
+    'API_KEY': '991167433474882',
+    'API_SECRET': 'i1z8gFqlEV2BbtAvmIYR90DANCY'
+}
 
-cloudinary.config( 
-  cloud_name = "dv0ldlv3d", 
-  api_key = "578664842593642", 
-  api_secret = "-W9_rN8EdmCkSiOKNZYAMP5HZlg" 
-)
+# cloudinary.config( 
+#   cloud_name = "dv0ldlv3d", 
+#   api_key = "578664842593642", 
+#   api_secret = "-W9_rN8EdmCkSiOKNZYAMP5HZlg" 
+# )
 
 
 

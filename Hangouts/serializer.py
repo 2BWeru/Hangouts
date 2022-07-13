@@ -63,6 +63,11 @@ class PostEventSerializer(serializers.ModelSerializer):
         model = Event
         fields ='__all__'
 
+
+class MainEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = '__all__'
         
 
 
