@@ -1,13 +1,16 @@
+from unicodedata import category
 from rest_framework.views import APIView
-from .serializer import  ProfileListSerializer,EventSerializers, SitesSerializer, UserSerializer,ProfileSerializer
+from .serializer import  CategorySerializer, EventSerializer, MainEventSerializer, PostEventSerializer, PostSerializer, PostlistSerializer, ProfileListSerializer,EventSerializers, ReviewSerializer, SitesSerializer, UserSerializer,ProfileSerializer
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework.exceptions import AuthenticationFailed
-from .models import Profile, Site,User,Event
+from .models import Category, Posts, Profile, Review, Site,User,Event
 import jwt,datetime
 from rest_framework import filters
 from rest_framework import permissions, mixins, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import status
+from rest_framework import generics
 
 from rest_framework.decorators import action, permission_classes as permission_decorator
 
@@ -69,7 +72,7 @@ class UserView(APIView):
         except:
             raise AuthenticationFailed('Unauthenticated')
 
-        user=User.objects.filter(id=payload[id]).first()
+        user=User.objects.filter(id=payload['id']).first()
         serializer=UserSerializer(user)
 
 
@@ -88,6 +91,20 @@ class ProfileView(APIView):
         
         return Response (serializer.data)
 
+
+class ReviewView(APIView):
+
+    def post(self,request):
+        serializer = Review.objects.all()
+        serializer=ReviewSerializer(data=request.data,context={'request': None})
+        serializer.is_valid(raise_exception=True)
+        
+        serializer.save()
+
+       
+        
+        return Response (serializer.data)        
+
 class ProfileListView(APIView):
 
     def get(self, request, format=None):
@@ -97,50 +114,55 @@ class ProfileListView(APIView):
 
     
 class SitesView(APIView):
-    filter_backends=[DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
-
-    filterset_fields = ['id','Location']
-    search_fields = ['title','Location']
-    ordering_fields = ['title','Location']
-
-
-
+ 
+    
     def get(self, request, format=None):
         sites = Site.objects.all()
         serializers = SitesSerializer(sites, many=True)
+  
+
         return Response(serializers.data)
 
-class SiteItemViewSet(APIView):
-    site = Site.objects.all()
-    serializer_class = SitesSerializer(site)
 
 
-class EventList(APIView):
-    # @permission_decorator([permissions.AllowAny])
+class SiteListViewSet(generics.ListAPIView):
+    queryset = Site.objects.all()
+    serializer_class = SitesSerializer
+    filter_backends=[DjangoFilterBackend]
+    filterset_fields = ['category1','id',]
+
+
+
+
+class PostView(APIView):
+
+    # def get(self, request, format=None):
+    #     post = Posts.objects.all()
+    #     serializers = ProfileListSerializer(post, many=True,context={'request': None})
+    #     return Response(serializers.data) 
+
+    def post(self, request, format=None):
+        serializers = PostSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+class CategoryView(APIView):
+
     def get(self, request, format=None):
-        events = Event.objects.all()
-        serializer = EventSerializers(events, many=True)
-        return Response(serializer.data)
+        category = Category.objects.all()
+        serializers = CategorySerializer(category, many=True,context={'request': None})
+        return Response(serializers.data)
+      
+class PostListView(APIView):
 
-class EventViewset(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+    def get(self, request, format=None):
+        category = Posts.objects.all()
+        serializers = PostlistSerializer(category, many=True,context={'request': None})
+        return Response(serializers.data)
+ 
 
-    queryset = Event.objects.all()
-    serializer_class = EventSerializers
-    permission_classes = [permissions.AllowAny]
-
-    @action(detail=False, method=['GET'])
-    # @permission_decorator([permissions.AllowAny])
-    def events(self, *args, **kwargs):
-        queryset = Event.objects.all()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
-    @permission_decorator([permissions.AllowAny])
-    @action(detail=False, methods=['GET'])
-    def view_event(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
 class LogoutView(APIView):
     def post(self,request):
@@ -154,6 +176,49 @@ class LogoutView(APIView):
 
 
 
+
+
+class all_events(APIView):
+    # permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        if request.method == "GET":
+            if  request.GET['category']:
+                category = request.GET['category']
+                print(category)
+                events = Event.objects.filter(category__id=int(category))
+                # print(events)
+            # else:
+            #     events = Event.objects.all()
+            serializer = EventSerializer(events, many=True)
+            return Response(serializer.data)
+
+
+class all_categories(APIView):
+    # permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        category = Category.objects.all()
+        serializer = CategorySerializer(category, many=True)
+        return Response(serializer.data)
+
+
+class create_event(APIView):
+    # permission_classes = (IsAuthenticated, )
+
+    def post(self, request):
+        serializer = PostEventSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+class main_event(APIView):
+    def get(self, request):
+        main_event = Event.objects.all()
+        serializer = MainEventSerializer(main_event, many=True)
+        return Response(serializer.data)
 
 
 

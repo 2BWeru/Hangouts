@@ -52,27 +52,29 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'Hangouts',
     'corsheaders',
+    # 'cloudinary',
+    'cloudinary_storage',
     'cloudinary',
     'django_filters',
        
 ]
 
-cloudinary.config(
-    cloud_name = 'dm2xeskmd',
-    api_key =  '991167433474882',
-    api_secret = 'i1z8gFqlEV2BbtAvmIYR90DANCY'
-)
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
-#     ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAdminUser',
-#     ),
-#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-#     'PAGE_SIZE': 10,
-# }
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dm2xeskmd',
+    'API_KEY': '991167433474882',
+    'API_SECRET': 'i1z8gFqlEV2BbtAvmIYR90DANCY'
+}
+
+# cloudinary.config(
+#     cloud_name = 'dm2xeskmd',
+#     api_key =  '991167433474882',
+#     api_secret = 'i1z8gFqlEV2BbtAvmIYR90DANCY'
+# )
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+   
+    
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -162,9 +164,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
 MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

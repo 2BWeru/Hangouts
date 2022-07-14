@@ -4,7 +4,7 @@ from rest_framework import serializers
 # from .models import User
 from django.contrib.auth.models import User
 
-from .models import Profile,Site,Event
+from .models import Category, Category1, Posts, Profile,Site,Event
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,7 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['fname','bio','id','user','instagram_acc','facebook_acc','avatar']
+        fields = ['fname','bio','id','instagram_acc','facebook_acc']
         owner = serializers.ReadOnlyField(source='user.username')
 
     def profile(self, request,args,kwargs,serializer):
@@ -54,7 +54,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class ProfileListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['fname','bio','id','user','instagram_acc','facebook_acc','avatar']
+        fields = ['fname','bio','id','user','instagram_acc','facebook_acc','user_id']
         owner = serializers.ReadOnlyField(source='user.username')
 
      
@@ -62,9 +62,55 @@ class ProfileListSerializer(serializers.ModelSerializer):
 class SitesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Site
-        fields = ['id','title','photo','text','Location']
+        fields = ['id','title','photo','text','Location','url','category1']
 
 class EventSerializers(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ['id', 'title', 'about', 'Location', 'time', 'due_date', 'photo', 'date', 'county']
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Posts
+        fields = ['image','date']
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category1
+        fields = ['type']
+
+class PostlistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Posts
+        fields = ['image','date']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Site
+        fields = ['user','created','site','reviews']
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Category
+        fields = '__all__'
+
+class EventSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
+
+    class Meta:
+        model = Event
+        fields = '__all__'
+
+class PostEventSerializer(serializers.ModelSerializer):
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(),many=False)
+
+    class Meta:
+        model = Event
+        fields ='__all__'
+
+
+class MainEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = '__all__'

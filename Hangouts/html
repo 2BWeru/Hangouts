@@ -1,0 +1,497 @@
+
+<body>
+  <article class="col-md-12">
+    <!-- Modern - Bootstrap Cards -->
+    <header>
+        <h2>Modern - Bootstrap 4 Cards</h2> </header>
+    <!-- BLOG CARDS -->
+    <h2>Blog Cards</h2>
+    <div class="cards-1 section-gray">
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-blog"*ngFor="let site of sites1 |slice:0:2"  >
+                        <div class="card-image" >
+                            <a [routerLink]="['',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url">
+                                <div class="card-caption"> {{site.title}} </div>
+                            </a>
+                            <div class="ripple-cont"></div>
+                        </div>
+                        <div class="table">
+                            <h6 class="category text-info">Cinema</h6>
+                            <p class="card-description"> {{site.text}} </p>
+                        </div>
+                    </div>
+                    <!-- modal -->
+                    
+                      
+
+                    <!-- <div class="card">
+                        <div class="table table-info">
+                            <h5 class="category-social">
+                    <i class="fa fa-twitter"></i> Twitter
+                  </h5>
+                            <h4 class="card-caption">
+                    <a href="#">"Vivamus odio ante, feugiat eget nisi sit amet, dignissim velit. Sus pendisse ultricies varius."</a>
+                  </h4>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="http://adamthemes.com/demo/code/cards/images/avatar3.png" alt="" class="avatar img-raised"> <span>Debbon Amet</span> </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-heart"></i> 365 &nbsp; <i class="fa fa-share-alt"></i> 120 </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="table">
+                            <h6 class="category text-danger">
+                    <i class="fa fa-globe "></i> World
+                  </h6>
+                            <h4 class="card-caption">
+                    <a href="#">Vivamus odio ante, feugiat eget nisi sit amet, dignissim velit.</a>
+                  </h4>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="http://adamthemes.com/demo/code/cards/images/avatar3.png" alt="" class="avatar img-raised"> <span>Patrick Wood</span>
+                                        <div class="ripple-cont">
+                                            <div class="ripple ripple-on ripple-out" style="left: 574px; top: 364px; background-color: rgb(60, 72, 88); transform: scale(11.875);"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-heart"></i> 342 &nbsp; <i class="fa fa-comment"></i> 45 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-blog" *ngFor="let site of sites1 |slice:3:4">
+                        <div class="card-image">
+                            <a [routerLink]="['',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url" > </a>
+                            <div class="ripple-cont"></div>
+                        </div>
+                        <div class="table" >
+                            <h6 class="category text-success"><i class="fa fa-university"></i>{{site.title}}</h6>
+                            <h4 class="card-caption">
+                </h4>
+                            <p class="card-description"> {{site.text}}</p>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img  alt="..." class="avatar img-raised"> <span>Mary Dunst</span> </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-clock-o"></i> 10 min </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card card-blog" *ngFor="let site of sites1 |slice:2:3">
+                    <div class="card-image" >
+                        <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url" > </a>
+                        <div class="ripple-cont"></div>
+                    </div>
+                    <div class="table" >
+                        <h6 class="category text-success"><i class="fa fa-university"></i>{{site.title}}</h6>
+                        <h4 class="card-caption">
+            </h4>
+                        <p class="card-description"> {{site.text}}</p>
+                        <div class="ftr">
+                            <div class="author">
+                                <a href="#"> <img  alt="..." class="avatar img-raised"> <span>Mary Dunst</span> </a>
+                            </div>
+                            <div class="stats"> <i class="fa fa-clock-o"></i> 10 min </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+                   
+            </div>
+        </div>
+    </div>
+    <!-- PLAIN CARDS -->
+    <h3>Plain Cards</h3>
+    <div class="cards-2 section-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-blog" *ngFor="let site of sites3|slice:0:1">
+                        <div class="card-image">
+                            <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img img-raised" [src]="site.url"> </a>
+                            <div class="ripple-cont"></div>
+                        </div>
+                        <div class="table">
+                            <h6 class="category text-info">{{site.title}}</h6>
+                            <h4 class="card-caption">
+                <!-- <a href="#">Quisque id elit maximus, pretium diam at mollis elit</a> -->
+              </h4>
+                            <p class="card-description"> {{site.text}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-blog" *ngFor="let site of sites3 |slice:2:3">
+                        <div class="card-image" >
+                            <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img img-raised" [src]="site.url"> </a>
+                        </div>
+                        <div class="table">
+                            <h6 class="category text-danger">{{site.title}}</h6>
+                            <h4 class="card-caption">
+                <!-- <a href="#">Quisque id elit maximus, pretium diam at mollis elit</a> -->
+              </h4>
+                            <p class="card-description">{{site.text}}</p>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-blog" *ngFor="let site of sites3 |slice:1:2">
+                        <div class="card-image">
+                            <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img img-raised" [src]="site.url"> </a>
+                        </div>
+                        <div class="table">
+                            <h6 class="category text-success">{{site.title}}</h6>
+                            <h4 class="card-caption">
+                <!-- <a href="#">Quisque id elit maximus, pretium diam at mollis elit</a> -->
+              </h4>
+                            <p class="card-description"> {{site.text}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BACKGROUND CARDS -->
+    <h3>Background Cards</h3>
+    <div class="cards-3 section-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-background" style="margin-left:250px;background-image: url('http://adamthemes.com/demo/code/cards/images/blog07.jpeg')">
+                        <div class="table">
+                            <h6 class="category text-info">Post Site</h6>
+                            <a href="#">
+                                <h3 class="card-caption"></h3> </a>
+                            <p class="card-description">Are you interested in marketing your business with us?</p>
+                            <a href="#" class="btn btn-white btn-simple"> <i class="fa fa-align-left"></i> Read Article </a>
+                            <a href="#pablo" class="btn btn-warning btn-round"> <i class="fa fa-cogs"></i> Our Project
+                                <div class="ripple-container"></div>
+                            </a>
+                        </div>
+                        <i><a href="">uber Rides</a></i>
+                        <i><a href="">Bolt</a></i>
+                        <i><a href="">Swivle</a></i>
+                    </div>
+                </div>
+                
+              
+            </div>
+        </div>
+    </div>
+      
+    <!-- PROFILE CARDS 1 -->
+    <h2>Blog Cards</h2>
+    <div class="cards-1 section-gray">
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-blog" *ngFor="let site of sites4 |slice:0:2"  >
+                        <div class="card-image" >
+                            <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url">
+                                <div class="card-caption"> {{site.title}} </div>
+                            </a>
+                            </div>
+                            <div class="ripple-cont"></div>
+                        
+                        <div class="table">
+                            <h6 class="category text-info">Cinema</h6>
+                            <p class="card-description"> {{site.text}} </p>
+                        </div>
+                    </div>
+                    <!-- <div class="card">
+                        <div class="table table-info">
+                            <h5 class="category-social">
+                    <i class="fa fa-twitter"></i> Twitter
+                  </h5>
+                            <h4 class="card-caption">
+                    <a href="#">"Vivamus odio ante, feugiat eget nisi sit amet, dignissim velit. Sus pendisse ultricies varius."</a>
+                  </h4>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="http://adamthemes.com/demo/code/cards/images/avatar3.png" alt="" class="avatar img-raised"> <span>Debbon Amet</span> </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-heart"></i> 365 &nbsp; <i class="fa fa-share-alt"></i> 120 </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="table">
+                            <h6 class="category text-danger">
+                    <i class="fa fa-globe "></i> World
+                  </h6>
+                            <h4 class="card-caption">
+                    <a href="#">Vivamus odio ante, feugiat eget nisi sit amet, dignissim velit.</a>
+                  </h4>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="http://adamthemes.com/demo/code/cards/images/avatar3.png" alt="" class="avatar img-raised"> <span>Patrick Wood</span>
+                                        <div class="ripple-cont">
+                                            <div class="ripple ripple-on ripple-out" style="left: 574px; top: 364px; background-color: rgb(60, 72, 88); transform: scale(11.875);"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-heart"></i> 342 &nbsp; <i class="fa fa-comment"></i> 45 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-blog" *ngFor="let site of sites4 |slice:3:4">
+                        <div class="card-image">
+                            <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url" > </a>
+                            <div class="ripple-cont"></div>
+                        </div>
+                        <div class="table" >
+                            <h6 class="category text-success"><i class="fa fa-university"></i>{{site.title}}</h6>
+                            <h4 class="card-caption">
+                </h4>
+                            <p class="card-description"> {{site.text}}</p>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img  alt="..." class="avatar img-raised"> <span>Mary Dunst</span> </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-clock-o"></i> 10 min </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card card-blog" *ngFor="let site of sites4 |slice:2:3">
+                    <div class="card-image">
+                        <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url" > </a>
+                        <div class="ripple-cont"></div>
+                    </div>
+                    <div class="table" >
+                        <h6 class="category text-success"><i class="fa fa-university"></i>{{site.title}}</h6>
+                        <h4 class="card-caption">
+            </h4>
+                        <p class="card-description"> {{site.text}}</p>
+                        <div class="ftr">
+                            <div class="author">
+                                <a href="#"> <img  alt="..." class="avatar img-raised"> <span>Mary Dunst</span> </a>
+                            </div>
+                            <div class="stats"> <i class="fa fa-clock-o"></i> 10 min </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+                   
+            </div>
+        </div>
+    </div>
+      <!-- BACKGROUND CARDS -->
+      <h3>Background Cards</h3>
+      <div class="cards-3 section-gray">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="card card-background" style="margin-left:250px;background-image: url('http://adamthemes.com/demo/code/cards/images/blog07.jpeg')">
+                          <div class="table">
+                              <h6 class="category text-info">Post Site</h6>
+                              <a href="#">
+                                  <h3 class="card-caption"></h3> </a>
+                              <p class="card-description">Are you interested in marketing your business with us?</p>
+                              <a href="#" class="btn btn-white btn-simple"> <i class="fa fa-align-left"></i> Read Article </a>
+                              <a href="#pablo" class="btn btn-warning btn-round"> <i class="fa fa-cogs"></i> Our Project
+                                  <div class="ripple-container"></div>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+                  
+                
+              </div>
+          </div>
+      </div>
+
+       <!-- PROFILE CARDS 1 -->
+    <h2>Blog Cards</h2>
+    <div class="cards-1 section-gray">
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-blog"*ngFor="let site of sites2 |slice:0:1"  >
+                        <div class="card-image" >
+                            <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url">
+                                <div class="card-caption"> {{site.title}} </div>
+                            </a>
+                            </div>
+                            <div class="ripple-cont"></div>
+                        <div class="table">
+                            <h6 class="category text-info">Cinema</h6>
+                            <p class="card-description"> {{site.text}} </p>
+                        </div>
+                        </div>
+                    <!-- <div class="card">
+                        <div class="table table-info">
+                            <h5 class="category-social">
+                    <i class="fa fa-twitter"></i> Twitter
+                  </h5>
+                            <h4 class="card-caption">
+                    <a href="#">"Vivamus odio ante, feugiat eget nisi sit amet, dignissim velit. Sus pendisse ultricies varius."</a>
+                  </h4>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="http://adamthemes.com/demo/code/cards/images/avatar3.png" alt="" class="avatar img-raised"> <span>Debbon Amet</span> </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-heart"></i> 365 &nbsp; <i class="fa fa-share-alt"></i> 120 </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="table">
+                            <h6 class="category text-danger">
+                    <i class="fa fa-globe "></i> World
+                  </h6>
+                            <h4 class="card-caption">
+                    <a href="#">Vivamus odio ante, feugiat eget nisi sit amet, dignissim velit.</a>
+                  </h4>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img src="http://adamthemes.com/demo/code/cards/images/avatar3.png" alt="" class="avatar img-raised"> <span>Patrick Wood</span>
+                                        <div class="ripple-cont">
+                                            <div class="ripple ripple-on ripple-out" style="left: 574px; top: 364px; background-color: rgb(60, 72, 88); transform: scale(11.875);"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-heart"></i> 342 &nbsp; <i class="fa fa-comment"></i> 45 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-blog" *ngFor="let site of sites2 |slice:2:4">
+                        <div class="card-image">
+                            <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url" > </a>
+                            <div class="ripple-cont"></div>
+                        </div>
+                        <div class="table" >
+                            <h6 class="category text-success"><i class="fa fa-university"></i>{{site.title}}</h6>
+                            <h4 class="card-caption">
+                </h4>
+                            <p class="card-description"> {{site.text}}</p>
+                            <div class="ftr">
+                                <div class="author">
+                                    <a href="#"> <img  alt="..." class="avatar img-raised"> <span>Mary Dunst</span> </a>
+                                </div>
+                                <div class="stats"> <i class="fa fa-clock-o"></i> 10 min </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card card-blog" *ngFor="let site of sites2 |slice:2:3">
+                    <div class="card-image">
+                        <a [routerLink]="['/sites',site.id]" (click)="sitesById(site.id)"> <img class="img" [src]="site.url" > </a>
+                        <div class="ripple-cont"></div>
+                    </div>
+                    <div class="table" >
+                        <h6 class="category text-success"><i class="fa fa-university"></i>{{site.title}}</h6>
+                        <h4 class="card-caption">
+            </h4>
+                        <p class="card-description"> {{site.text}}</p>
+                        <div class="ftr">
+                            <div class="author">
+                                <a href="#"> <img  alt="..." class="avatar img-raised"> <span>Mary Dunst</span> </a>
+                            </div>
+                            <div class="stats"> <i class="fa fa-clock-o"></i> 10 min </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                   
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <h3>Background Cards</h3> -->
+    <div class="card" style="text-align: center;">
+        <div class="table" style="text-align: center;">
+            <h6 class="category text-danger">
+    <i class="fa fa-globe " style="text-align: center;"></i>Our best choice for transportation 
+  </h6>
+            <h4 class="card-caption">
+    <a href="#">We've got you Covered</a>
+  </h4>
+            <div class="ftr">
+                <div class="author">
+                        <div class="ripple-cont">
+                            <div class="ripple ripple-on ripple-out" style="left: 574px; top: 364px; background-color: rgb(60, 72, 88); transform: scale(11.875);"></div>
+                        </div>
+                </div>
+                <div class="stats"> <i class="fa fa-heart"></i> 342 &nbsp; <i class="fa fa-comment"></i> 45 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-3 section-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="https://www.uber.com/global/en/cities/nairobi/">
+                    <div class="card card-background" style="margin-left:50px;background-image: url('/assets/images/uber.jpeg')">
+                        <div class="table">
+                            <h6 class="category text-info">Uber</h6>
+                              
+                        </div>
+                    </div>
+                </a>
+                </div>
+                
+       
+                <div class="col-md-4">
+                    <a href="https://www.swvl.com/">
+                    <div class="card card-background" style="margin-left:50px;background-image: url('/assets/images/swvl2.png')">
+                        <div class="table">
+                            <h6 class="category text-info">Swivl</h6>
+                             
+                        </div>
+                    </div>
+                </a>
+                </div>
+   
+    <!-- 
+     -->
+     
+   
+                 <div class="col-md-4">
+                    <a href="https://bolt.eu/en/cities/nairobi/">
+                     <div class="card card-background" style="margin-left:50px;background-image: url('/assets/images/bolt.jpeg')">
+                         <div class="table">
+                             <h6 class="category text-info">Bolt</h6>
+                               
+                         </div>
+                     </div>
+                    </a>
+                 </div>
+                 
+               
+             </div>
+         </div>
+     </div>
+    
+    <!-- PROFILE CARDS 2 -->
+    
+    <!-- TESTIMONIAL CARDS -->
+    <!--
+!!!!!!!!!
+This demo is created to demonstrate animation of opening modal. Use it for inspiration  only. I use the a element to toggle the state of demo without JS. So DON"T USE it in production. If you want to use this animation you have to replace the element on the <button type="button">.
+!!!!!!!!!
+-->
+
+
+
+
+
+
+
+</article>
+</body>
