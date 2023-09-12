@@ -47,11 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
     'Hangouts',
     'corsheaders',
+    'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
     
@@ -113,14 +113,15 @@ WSGI_APPLICATION = 'Events.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hangouts2',
-        'USER': 'wamaitha',
-    'PASSWORD':'hangouts2022',
+        'NAME': 'events',
+        'USER': 'postgres',
+        'PASSWORD':'qwerty',
+        'HOST': 'localhost',
     }
 }
 
 # multi user authentication
-AUTH_USER_MODEL='Hangouts.user'
+# AUTH_USER_MODEL='Hangouts.user'
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -145,7 +146,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -157,13 +158,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static/")]
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -177,6 +178,12 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'i1z8gFqlEV2BbtAvmIYR90DANCY'
 }
 
+
+# cloudinary.config( 
+#   cloud_name = "dv0ldlv3d", 
+#   api_key = "578664842593642", 
+#   api_secret = "-W9_rN8EdmCkSiOKNZYAMP5HZlg" 
+# )
 
 
 

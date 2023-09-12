@@ -3,16 +3,19 @@ from json import tool
 from pickle import TRUE
 from urllib import response
 from rest_framework.views import APIView
-from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer
-from rest_framework import permissions
+from .serializer import ProfileListSerializer, UserSerializer,ProfileSerializer, CategorySerializer, EventSerializer, PostEventSerializer, MainEventSerializer
+from rest_framework import permissions, mixins, viewsets
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.exceptions import AuthenticationFailed
-from .models import Profile,User
+from .models import *
 from django.http import HttpResponse
 from rest_framework import permissions
 import jwt,datetime
+
+from rest_framework.decorators import action, permission_classes as permission_decorator
+from rest_framework.permissions import IsAuthenticated,AllowAny
 
 
 class RegisterView(APIView):
@@ -86,6 +89,49 @@ class LogoutView(APIView):
 
 
 
+
+
+class all_events(APIView):
+    # permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        if request.method == "GET":
+            if  request.GET['category']:
+                category = request.GET['category']
+                print(category)
+                events = Event.objects.filter(category__id=int(category))
+                # print(events)
+            # else:
+            #     events = Event.objects.all()
+            serializer = EventSerializer(events, many=True)
+            return Response(serializer.data)
+
+
+class all_categories(APIView):
+    # permission_classes = (IsAuthenticated, )
+
+    def get(self, request):
+        category = Category.objects.all()
+        serializer = CategorySerializer(category, many=True)
+        return Response(serializer.data)
+
+
+class create_event(APIView):
+    # permission_classes = (IsAuthenticated, )
+
+    def post(self, request):
+        serializer = PostEventSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+class main_event(APIView):
+    def get(self, request):
+        main_event = Event.objects.all()
+        serializer = MainEventSerializer(main_event, many=True)
+        return Response(serializer.data)
 
 
 
@@ -174,4 +220,3 @@ class LogoutView(APIView):
 #         else:
 #             message = "Kindly input a search term to get any results"
 #             return render(request,'search.html',{})
-
