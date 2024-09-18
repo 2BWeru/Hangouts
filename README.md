@@ -5,7 +5,7 @@ Hangouts provides all the tools you need to make event planning and participatio
 This project uses Django Rest Framework and Django for the backend and Angular for the frontend, creating a highly responsive and efficient web application.
 
 ### Partner
-This project was developed in collaboration with `[DeanKago](https://github.com/2BWeru/Hangouts/issues?q=is%3Apr+is%3Aopen+author%3ADEANKAGO)`. Check out their profile for more amazing projects!
+This project was developed in collaboration with `DeanKago`. Check out their profile for more amazing projects!
 
 ## Features
 - Event Discovery: Browse and discover events based on your interests.
